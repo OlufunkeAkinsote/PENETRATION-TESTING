@@ -75,13 +75,17 @@ Provisional Severity: Critical or High, pending validation
 Description
 During the assessment, access to patient information was reportedly obtained through the target application.
 Patient records can contain highly sensitive personal and medical information. If these records are accessible to users who do not have the required permissions, the application may have inadequate access-control enforcement or another weakness that exposes confidential information.
+
 Potential Impact
+
 •	Breach of patient confidentiality.
 •	Exposure of sensitive personal or medical information.
 •	Potential privacy and regulatory consequences.
 •	Increased risk of identity misuse or other targeted attacks.
 •	Reputational damage and loss of trust.
+
 Proof of Exploitation
+
 The reported test result was successful access to patient information.
 The final evidence record should include:
 •	The affected application endpoint or resource category.
@@ -126,6 +130,7 @@ Recommendation and Remediation
 5.	Review access logs for unexpected access to compensation records.
 6.	Investigate whether other confidential employee information was exposed.
 Retest Criteria: Users without the required role must be unable to retrieve staff salary information through the interface, direct URLs, or API requests.
+
 ________________________________________
 Finding 3: Download of Encrypted Files
 Finding ID: WEB-03
@@ -135,14 +140,17 @@ Description
 Encrypted files were reportedly downloaded during the assessment.
 Encryption can protect information when files are stored or transmitted, but encryption alone does not prevent unauthorized file downloads. If sensitive files are accessible to unauthorized users, the application may have weaknesses in file access controls, storage configuration, or resource authorization.
 The actual impact depends on the contents of the files, the encryption method, the security of the encryption keys, and whether the files could be decrypted.
+
 Potential Impact
 •	Unauthorized possession of confidential files.
 •	Potential disclosure if the encryption protection is weak or the relevant password is recovered.
 •	Exposure of additional sensitive information if files contain patient, employee, or system records.
 •	Increased opportunities for further compromise.
+
 Proof of Exploitation
 The reported result was the successful download of encrypted files.
 The evidence record should identify the file category, the access conditions, the server response, and whether the files could be opened or decrypted. File names and contents should be redacted if they reveal confidential information.
+
 Recommendation and Remediation
 1.	Store sensitive files outside publicly accessible directories where practical.
 2.	Enforce server-side authorization before every file download.
@@ -152,6 +160,7 @@ Recommendation and Remediation
 6.	Review file access logs and restrict unnecessary file access.
 7.	Investigate whether any downloaded files contained patient records, employee information, or credentials.
 Retest Criteria: Unauthorized requests must be denied, and sensitive files must not be retrievable by users without the necessary permissions.
+
 ________________________________________
 Finding 4: Password Recovery Through Hash Analysis
 Finding ID: WEB-04
@@ -161,11 +170,14 @@ Description
 During the reported assessment, password-hash analysis was used to recover a password. The recovered password was then used to gain access to protected content.
 This result demonstrates that the tested password or password-protection mechanism was susceptible to the method used in the assessment. The precise root cause requires further evidence. Potential contributing factors include weak password selection, inadequate password-hashing configuration, or insufficient protection of password hashes.
 Recovering a password for an encrypted file does not, by itself, establish that an application account was compromised. The affected resource and the scope of the recovered credential must be identified in the final report.
+
 Potential Impact
+
 •	Unauthorized access to password-protected files or resources.
 •	Exposure of confidential information protected by the recovered password.
 •	Increased risk if the password is reused for other accounts or services.
 •	Potential expansion of access if the recovered credential provides additional privileges.
+
 Proof of Exploitation
 The reported result was successful password recovery through hash analysis, followed by access to protected content.
 The final evidence should document:
@@ -175,6 +187,7 @@ The final evidence should document:
 •	The type of protected resource subsequently accessed.
 •	Whether the recovered password was specific to a document or associated with an application account.
 Do not include the recovered password, a usable hash, or other authentication secrets in the report.
+
 Recommendation and Remediation
 1.	Replace weak passwords with strong, unique credentials.
 2.	For application account passwords, use modern password-hashing algorithms such as Argon2id, scrypt, or appropriately configured bcrypt or PBKDF2, with unique salts.
@@ -201,7 +214,8 @@ WEB-03	Download of encrypted files	High, subject to contents and protection	High
 WEB-04	Password recovery through hash analysis	High, subject to scope of access	High
 These ratings are provisional. The patient information finding should be rated Critical only if the evidence supports the scale and consequences of the demonstrated exposure. The encrypted-file finding also depends on whether unauthorized access was confirmed and whether the encryption could be defeated.
 The final report should distinguish confirmed exploitation from potential consequences and should not imply that all patient records, employee records, or application accounts were compromised unless the evidence establishes that scope.
-5. Recommendations and Remediation Plan
+
+6. Recommendations and Remediation Plan
 5.1 Immediate Remediation
 Priority 1 — Protect patient and employee information
 •	Restrict access to patient and payroll records.
@@ -215,6 +229,7 @@ Priority 2 — Secure files and credentials
 •	Rotate confirmed exposed credentials.
 •	Review password storage and password strength.
 •	Revoke unnecessary access to sensitive resources.
+
 5.2 Technical Remediation
 Security Area	Required Action	Verification Method
 Patient data	Enforce record-level authorization	Test access using accounts with different permissions
@@ -222,7 +237,9 @@ Salary information	Restrict payroll functions and resources	Confirm unauthorized
 Encrypted files	Enforce download authorization and secure storage	Confirm unauthorized file requests are denied
 Password security	Strengthen password storage and credential controls	Review configuration and repeat authorized password-security tests
 Monitoring	Log access to sensitive records and files	Confirm relevant events are recorded and alerts are generated as designed
+
 5.3 Remediation Verification
+   
 Following remediation, conduct an authorized retest to confirm that:
 1.	Patient information is accessible only to appropriately authorized users.
 2.	Staff salary information is restricted to approved roles.
@@ -230,14 +247,16 @@ Following remediation, conduct an authorized retest to confirm that:
 4.	Password protection and credential storage meet the applicable security requirements.
 5.	Relevant access attempts are logged and can be investigated.
 Record each retest result as Pass, Fail, or Inconclusive, with supporting evidence.
-6. Conclusion
+
+7. Conclusion
 The reported penetration testing results for medirozahospital.com indicate potentially serious security weaknesses involving access to patient information, employee salary information, encrypted files, and password-protected content.
 The reported recovery of a password through hash analysis further demonstrates the importance of evaluating password strength and the security of stored password hashes or other protection mechanisms.
 If these activities demonstrated access beyond the permissions granted to the assessor, the findings represent significant confidentiality risks and should be prioritized for investigation and remediation.
 The assessment reinforced the importance of effective access control, secure file handling, strong password protection, and evidence-based vulnerability validation.
 The recommended next steps are to confirm the technical root cause of each finding, establish the extent of any unauthorized exposure, implement the proposed corrective measures, and verify their effectiveness through a controlled retest.
 This project provided practical experience in web application assessment, vulnerability analysis, evidence documentation, and risk-based remediation planning.
-7. Evidence Register
+
+9. Evidence Register
 Attach only sanitized evidence from the actual assessment.
 Evidence ID	Finding	Required Supporting Evidence
 E-01	WEB-01	Redacted response or screenshot demonstrating access to patient information
@@ -245,6 +264,7 @@ E-02	WEB-02	Redacted response or screenshot demonstrating access to staff salary
 E-03	WEB-03	Evidence of the file download and its access conditions
 E-04	WEB-04	Sanitized password-hash analysis result and evidence of access to protected content
 E-05	All findings	Retest evidence following remediation
+
 Evidence Handling
 •	Do not attach unredacted patient records or payroll information.
 •	Do not include recovered passwords, reusable hashes, session tokens, or private encryption keys.
