@@ -91,6 +91,7 @@ The final evidence record should include:
 •	The validation date and final test result.
 Patient names, medical record numbers, diagnoses, and other identifying details should not appear in the report.
 Recommendation and Remediation
+
 1.	Enforce server-side authorization checks for all patient-related resources.
 2.	Apply role-based access control and least-privilege permissions.
 3.	Verify that users can access only records they are explicitly authorized to view.
@@ -116,6 +117,7 @@ Proof of Exploitation
 The reported result was successful access to staff salary information.
 Evidence should establish the resource accessed, the permissions of the testing account, the observed application response, and whether the information was outside the account's authorized access.
 Any screenshots or exported records should be sanitized to remove employee identities, individual salaries, account details, and other confidential information.
+
 Recommendation and Remediation
 1.	Restrict salary and payroll resources to explicitly authorized HR, payroll, and management roles.
 2.	Enforce server-side permission checks for every request.
